@@ -5,10 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Table
 public class Actividad {
     protected int idActividad;
     protected Categoria idCategoria;
