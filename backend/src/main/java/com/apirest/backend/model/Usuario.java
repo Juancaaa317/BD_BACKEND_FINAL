@@ -1,0 +1,20 @@
+package com.apirest.backend.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Usuario {
+    protected int idUsuario;
+    protected String nombre_completo;
+    protected int documento_identificacion;
+    protected int edad;
+    protected String email;
+    protected int telefono;
+    protected String direccion_residencia;
+    protected Enums.rol rol;
+}
