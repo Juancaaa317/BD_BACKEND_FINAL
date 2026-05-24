@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,6 +15,7 @@ import jakarta.persistence.Table;
 @NoArgsConstructor
 @Table(name = "Actividad")
 public class Actividad {
+    @Id
     protected int idActividad;
     protected Categoria idCategoria;
     protected Usuario idUsuario;
