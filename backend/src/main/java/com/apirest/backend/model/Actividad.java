@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "Actividad")
 public class Actividad {
     protected int idActividad;
     protected Categoria idCategoria;
