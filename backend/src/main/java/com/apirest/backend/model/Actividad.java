@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Actividad")
+@Table(name = "actividad")
 public class Actividad {
     @Id
     protected int idActividad;
