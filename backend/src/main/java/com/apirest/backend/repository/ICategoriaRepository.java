@@ -1,5 +1,9 @@
 package com.apirest.backend.repository;
 
-public class CategoriaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.apirest.backend.model.Categoria;
+
+public interface ICategoriaRepository extends JpaRepository<Categoria, Integer>{
     
 }

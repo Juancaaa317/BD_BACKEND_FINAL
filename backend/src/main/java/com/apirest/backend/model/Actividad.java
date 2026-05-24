@@ -6,7 +6,11 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,11 +21,24 @@ import jakarta.persistence.Table;
 public class Actividad {
     @Id
     protected int idActividad;
+    @ManyToOne
+    @JoinColumn(name = "idCategoria")
     protected Categoria idCategoria;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
     protected Usuario idUsuario;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario_propone")
     protected Usuario idUsuario_propone;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario_aprueba")
     protected Usuario idUsuario_aprueba;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario_imparte")
     protected Usuario idUsuario_imparte;
+    @ManyToOne
+    @JoinColumn(name = "idPrograma")
+    protected programaEspecial idPrograma;
     protected String nombre;
     protected String descripcion;
     protected String objetivo;
@@ -29,6 +46,7 @@ public class Actividad {
     protected Date fecha_finalizacion;
     protected int intensidad_horaria;
     protected int cupo_maximo;
+    @Enumerated(EnumType.STRING)
     protected Enums.estado estado;
 }
  //se debe mapear como esta en la tabla

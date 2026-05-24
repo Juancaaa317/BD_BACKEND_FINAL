@@ -26,7 +26,6 @@ public class ActividadServiceImp implements IActividadService {
         }
         
         
-
         rol rolUsuario = actividad.getIdUsuario_propone().getRol();
         if (rolUsuario==rol.participante) {
             throw new RuntimeException("Error! Un participante no puede proponer actividades.");
