@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -28,6 +30,7 @@ public class Asistencia {
     @JoinColumn(name = "idUsuario")
     protected Usuario idUsuario;
     protected Timestamp hora_registro;
+    @Enumerated(EnumType.STRING)
     protected Enums.estado estado;
     protected String observaciones;   
 }

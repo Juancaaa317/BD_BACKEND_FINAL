@@ -49,7 +49,7 @@ public class ActividadController {
         return ResponseEntity.ok(actividadService.filtrarPorCategoria(idCategoria));
     }
     //buscar detalle
-    @GetMapping("{id}")
+    @GetMapping("{idActividad}")
     public ResponseEntity<Optional<Actividad>> buscarActividadDetalle(@PathVariable Integer idActividad){
         return ResponseEntity.ok(actividadService.buscarActividadDetalle(idActividad));
     }
@@ -59,7 +59,7 @@ public class ActividadController {
         return actividadService.actualizarActividad(idActividad, actividad);
     }
     //eliminar
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idActividad}")
     ResponseEntity<String> eliminarActividad(@PathVariable Integer idActividad){
         return ResponseEntity.ok(actividadService.eliminarActividad(idActividad));
     }

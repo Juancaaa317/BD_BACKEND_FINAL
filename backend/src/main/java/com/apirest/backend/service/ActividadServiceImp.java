@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.apirest.backend.model.Actividad;
 import com.apirest.backend.repository.IActividadRepository;
 import com.apirest.backend.repository.ICategoriaRepository;
+import com.apirest.backend.repository.IInscripcionRepository;
 import com.apirest.backend.repository.IUsuarioRepository;
+import com.apirest.backend.repository.ISesionRepository;
 
 import Enums.estado;
 import Enums.rol;
@@ -20,6 +22,8 @@ public class ActividadServiceImp implements IActividadService {
     @Autowired IActividadRepository actividadRepository;
     @Autowired IUsuarioRepository usuarioRepositoy;
     @Autowired ICategoriaRepository categoriaRepository;
+    @Autowired IInscripcionRepository inscripcionRepository;
+    @Autowired ISesionRepository sesionRepository;
 
     //crear act
     @Override
@@ -56,7 +60,7 @@ public class ActividadServiceImp implements IActividadService {
     //filtrar por categoria
     @Override
     public List<Actividad> filtrarPorCategoria(Integer idCategoria) {
-        return actividadRepository.filtrarPorCategoria(idCategoria);
+        return actividadRepository.findByCategoria_IdCategoria(idCategoria);
         
     
     }
@@ -91,8 +95,8 @@ public class ActividadServiceImp implements IActividadService {
             throw new RuntimeException("Error! La actividad no existe.");
         }
 
-        boolean tieneInscritos = actividadRepository.tieneInscritos(idActividad);
-        boolean tieneSesiones  = actividadRepository.tieneSesiones(idActividad);
+        boolean tieneInscritos = inscripcionRepository.existsByIdActividad(idActividad);
+        boolean tieneSesiones = sesionRepository.existsByIdActividad(idActividad);
 
         if (tieneInscritos || tieneSesiones) {
             Actividad actividad = actividadRepository.findById(idActividad).get();

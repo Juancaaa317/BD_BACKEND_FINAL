@@ -1,6 +1,8 @@
 package com.apirest.backend.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,5 +21,6 @@ public class Espacio {
     protected String ubicacion;
     protected int capacidad;
     protected String descripcion;
+    @Enumerated(EnumType.STRING)
     protected Enums.estadoEspacio estado;
 }

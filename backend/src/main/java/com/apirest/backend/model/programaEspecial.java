@@ -4,6 +4,8 @@ package com.apirest.backend.model;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,5 +26,6 @@ public class programaEspecial {
     protected Date fecha_inicio;
     protected Date fecha_fin;
     protected String poblacion_objetivo;
+    @Enumerated(EnumType.STRING)
     protected Enums.tipo tipo;
 }
