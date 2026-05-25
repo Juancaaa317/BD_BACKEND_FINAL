@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 @Table(name="usuario")
 public class Usuario {
     @Id
-    protected int idUsuario;
+    protected Integer idUsuario;
     protected String nombre_completo;
-    protected int documento_identificacion;
-    protected int edad;
+    protected Integer documento_identificacion;
+    protected Integer edad;
     protected String email;
-    protected int telefono;
+    protected Integer telefono;
     protected String direccion_residencia;
     @Enumerated(EnumType.STRING)
     protected Enums.rol rol;

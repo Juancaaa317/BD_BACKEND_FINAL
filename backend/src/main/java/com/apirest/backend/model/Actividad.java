@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 @Table(name = "actividad")
 public class Actividad {
     @Id
-    protected int idActividad;
+    protected Integer idActividad;
     @ManyToOne
     @JoinColumn(name = "idCategoria")
     protected Categoria idCategoria;
@@ -41,8 +41,8 @@ public class Actividad {
     protected String objetivo;
     protected Date fecha_inicio;
     protected Date fecha_finalizacion;
-    protected int intensidad_horaria;
-    protected int cupo_maximo;
+    protected Integer intensidad_horaria;
+    protected Integer cupo_maximo;
     
     @Enumerated(EnumType.STRING)
     protected Enums.estado estado;

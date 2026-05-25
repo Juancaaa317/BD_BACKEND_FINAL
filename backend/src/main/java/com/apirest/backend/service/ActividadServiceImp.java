@@ -110,7 +110,6 @@ public class ActividadServiceImp implements IActividadService {
         return "Actividad eliminada correctamente";
     
         
-       
         
     }
     
