@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 
 public class Seguimiento {
     @Id
-    protected int idSeguimiento;
+    protected Integer idSeguimiento;
     @ManyToOne
     @JoinColumn(name = "idActividad")
     protected Actividad idActividad;

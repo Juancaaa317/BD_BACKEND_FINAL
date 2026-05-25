@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 
 public class programaEspecial {
     @Id
-    protected int idPrograma;
+    protected Integer idPrograma;
     protected String nombre;
     protected String descripcion;
     protected Date fecha_inicio;

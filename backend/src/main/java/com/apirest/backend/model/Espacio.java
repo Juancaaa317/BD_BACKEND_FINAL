@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 
 public class Espacio {
     @Id
-    protected int idEspacio;
+    protected Integer idEspacio;
     protected String nombre;
     protected String ubicacion;
-    protected int capacidad;
+    protected Integer capacidad;
     protected String descripcion;
     @Enumerated(EnumType.STRING)
     protected Enums.estadoEspacio estado;
