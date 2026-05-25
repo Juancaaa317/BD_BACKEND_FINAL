@@ -12,8 +12,8 @@ import com.apirest.backend.model.Seguimiento;
 import com.apirest.backend.model.Usuario;
 import com.apirest.backend.repository.IActividadRepository;
 import com.apirest.backend.repository.IInscripcionRepository;
-import com.apirest.backend.repository.IUsuarioRepository;
 import com.apirest.backend.repository.ISeguimientoRepository;
+import com.apirest.backend.repository.IUsuarioRepository;
 
 import Enums.estado;
 import Enums.estadoInscripcion;
@@ -134,8 +134,7 @@ public class SeguimientoServiceImp implements ISeguimientoService {
         }
 
         // Retorna los seguimientos encontrados
-        return seguimientoRepository
-                .findByIdUsuario_participante_IdUsuarioAndIdActividad_IdActividad(idUsuario, idActividad);
+        return seguimientoRepository.buscarHistorialParticipanteActividad(idUsuario, idActividad);
     }
 
     // Método para consultar seguimientos realizados por un instructor
@@ -152,7 +151,7 @@ public class SeguimientoServiceImp implements ISeguimientoService {
         }
 
         // Retorna los seguimientos realizados por el instructor
-        return seguimientoRepository.findByIdUsuario_instructor_IdUsuario(idInstructor);
+        return seguimientoRepository.buscarSeguimientosPorInstructor(idInstructor);
     }
 
     // Método para actualizar un seguimiento
