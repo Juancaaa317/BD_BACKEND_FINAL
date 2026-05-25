@@ -44,7 +44,7 @@ public class ActividadController {
 
     }
     //filtrar por categoria
-    @GetMapping("/estado/{idCategoria}")
+    @GetMapping("/categoria/{idCategoria}")
     ResponseEntity<List<Actividad>> filtrarPorCategoria(@PathVariable Integer idCategoria){
         return ResponseEntity.ok(actividadService.filtrarPorCategoria(idCategoria));
     }

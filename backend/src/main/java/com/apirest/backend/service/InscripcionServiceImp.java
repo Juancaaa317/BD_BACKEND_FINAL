@@ -1,31 +1,81 @@
 package com.apirest.backend.service;
 
-import java.util.Optional;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apirest.backend.model.Actividad;
 import com.apirest.backend.model.Inscripcion;
 import com.apirest.backend.model.Usuario;
 import com.apirest.backend.repository.IActividadRepository;
 import com.apirest.backend.repository.IInscripcionRepository;
 import com.apirest.backend.repository.IUsuarioRepository;
 
-@Service
+import Enums.estado;
+import Enums.estadoInscripcion;
+import Enums.rol;
 
+@Service
 public class InscripcionServiceImp implements IInscripcionService {
 
-    @Autowired IUsuarioRepository usuarioRepository;
-    @Autowired IActividadRepository actividadRepository;
-    @Autowired IInscripcionRepository iInscripcionRepository;
+    @Autowired
+    IUsuarioRepository usuarioRepository;
+
+    @Autowired
+    IActividadRepository actividadRepository;
+
+    @Autowired
+    IInscripcionRepository iInscripcionRepository;
+
     @Override
-
-    
     public Inscripcion crearInscripcion(Inscripcion inscripcion) {
-        Optional<Usuario> usuario = usuarioRepository.findById(inscripcion.getId().getIdUsuario().getIdUsuario());
+        
+        Usuario usuario = usuarioRepository.findById(inscripcion.getId().getIdUsuario().getIdUsuario())
+        .orElseThrow(() ->new RuntimeException("Usuario no encontrado"));
 
-        return inscripcion;
+        // Validar rol
+        if (usuario.getRol() != rol.participante) {
+            throw new RuntimeException("Solo participantes pueden inscribirse");
+        }
+        
+        //validar actividad
+        Actividad actividad = actividadRepository.findById(inscripcion.getId().getIdActividad().getIdActividad())
+        .orElseThrow(() ->new RuntimeException("actividad no encontrada"));
+
+        //cupos maximos
+        int inscritos = iInscripcionRepository.countById_IdActividad_IdActividad(actividad.getIdActividad());
+
+        if(inscritos >= actividad.getCupo_maximo()){
+            throw new RuntimeException("no hay cupo papi");
+        }
+
+        //set fecha automatico
+        inscripcion.setFecha_inscripcion(new Date()); 
+        //set estado inscrito
+        inscripcion.setEstado(estadoInscripcion.inscrito);
+
+
+        if (actividad.getEstado() == estado.finalizada || actividad.getEstado() == estado.cancelada) {
+            throw new RuntimeException("No se puede inscribir en actividades finalizads");
+        }
+
+
+
+        return iInscripcionRepository.save(inscripcion);
     }
 
+    @Override
+    public List<Inscripcion> listarPorEstado(estadoInscripcion estado) {
+        return iInscripcionRepository.findByEstado(estado);
+        
+    }
     
+
+    
+
+
+
+
 }

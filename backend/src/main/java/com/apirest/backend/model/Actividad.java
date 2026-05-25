@@ -25,9 +25,6 @@ public class Actividad {
     @JoinColumn(name = "idCategoria")
     protected Categoria idCategoria;
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
-    protected Usuario idUsuario;
-    @ManyToOne
     @JoinColumn(name = "idUsuario_propone")
     protected Usuario idUsuario_propone;
     @ManyToOne
