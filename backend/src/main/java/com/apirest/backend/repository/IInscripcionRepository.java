@@ -10,25 +10,24 @@ import org.springframework.data.repository.query.Param;
 import com.apirest.backend.model.Inscripcion;
 import com.apirest.backend.model.InscripcionId;
 
+import Enums.estadoInscripcion;
 
 public interface IInscripcionRepository extends JpaRepository<Inscripcion, InscripcionId>  {
     
     @Query("SELECT COUNT(i) FROM Inscripcion i WHERE i.id.idActividad.idActividad = :idActividad")
     int countById_IdActividad_IdActividad(@Param("idActividad") Integer idActividad);
 
-    List<Inscripcion> findByEstado(Enums.estadoInscripcion estado);
+    List<Inscripcion> findByEstado(estadoInscripcion estado);
 
     @Query("SELECT i FROM Inscripcion i WHERE i.id.idUsuario.idUsuario = :idUsuario AND i.id.idActividad.idActividad = :idActividad")
     Optional<Inscripcion> findById_IdUsuario_IdUsuarioAndId_IdActividad_IdActividad(
         @Param("idUsuario") Integer idUsuario,
-        @Param("idActividad") Integer idActividad);
+        @Param("idActividad") Integer idActividad
+    );
 
     @Query("SELECT i FROM Inscripcion i WHERE i.id.idActividad.idActividad = :idActividad")
     List<Inscripcion> findById_IdActividad_IdActividad(@Param("idActividad") Integer idActividad);
 
     @Query("SELECT COUNT(i) > 0 FROM Inscripcion i WHERE i.id.idActividad.idActividad = :idActividad")
     boolean existsByIdActividad(@Param("idActividad") Integer idActividad);
-
-
-
 }
