@@ -11,7 +11,8 @@ public interface IInscripcionService {
     List<Inscripcion>listarPorEstado(Enums.estadoInscripcion estado);
     Inscripcion actualizarEstado(Integer idUsuario, Integer idActividad, estadoInscripcion nuevoEstado);
     Inscripcion buscarInscripcion(Integer idUsuario,Integer idActividad);
-
+    String eliminarInscripcion(Integer idUsuario, Integer idActividad);
+    List<Inscripcion> listarPorActividad(Integer idActividad);
 
 
 

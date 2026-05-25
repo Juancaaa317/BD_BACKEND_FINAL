@@ -73,8 +73,20 @@ public class InscripcionServiceImp implements IInscripcionService {
         
     }
 
+    //listar actividad
+    @Override
+    public List<Inscripcion> listarPorActividad(Integer idActividad) {
 
-    //buscar inscripcion
+        if (!actividadRepository.existsById(idActividad)) {
+            throw new RuntimeException("Error! La actividad no existe.");
+        }
+        return iInscripcionRepository.findById_IdActividad_IdActividad(idActividad);
+    }
+
+
+
+    //buscar inscripcion, Mostrar los datos básicos del usuario y el estado de su inscripción.
+
     @Override
     public Inscripcion buscarInscripcion(Integer idUsuario, Integer idActividad) {
         return iInscripcionRepository.findById_IdUsuario_IdUsuarioAndId_IdActividad_IdActividad(idUsuario, idActividad).orElseThrow(()
@@ -90,6 +102,37 @@ public class InscripcionServiceImp implements IInscripcionService {
         inscripcion.setEstado(nuevoEstado);
         return iInscripcionRepository.save(inscripcion);
     }
+
+    //eliminar
+    @Override
+    public String eliminarInscripcion(Integer idUsuario, Integer idActividad) {
+        
+        Inscripcion inscripcion =buscarInscripcion( idUsuario,idActividad);
+        boolean tieneSeguimientos = false;
+        boolean tieneAsistencias = false;
+
+        // BORRADO LOGICO
+        if ( tieneSeguimientos|| tieneAsistencias) {
+
+            inscripcion.setEstado( Enums.estadoInscripcion.retirado );
+
+            iInscripcionRepository.save(inscripcion);
+
+            return "Inscripción retirada";
+        }
+
+        // BORRADO FISICO
+        iInscripcionRepository
+                .delete(inscripcion);
+
+        return "Inscripción eliminada";
+    }
+
+ 
+    
+
+    
+    
 
     
     
