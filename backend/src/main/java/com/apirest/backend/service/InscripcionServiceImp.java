@@ -66,11 +66,33 @@ public class InscripcionServiceImp implements IInscripcionService {
         return iInscripcionRepository.save(inscripcion);
     }
 
+    //listar por estado
     @Override
     public List<Inscripcion> listarPorEstado(estadoInscripcion estado) {
         return iInscripcionRepository.findByEstado(estado);
         
     }
+
+
+    //buscar inscripcion
+    @Override
+    public Inscripcion buscarInscripcion(Integer idUsuario, Integer idActividad) {
+        return iInscripcionRepository.findById_IdUsuario_IdUsuarioAndId_IdActividad_IdActividad(idUsuario, idActividad).orElseThrow(()
+        -> new RuntimeException("Error! No se encontró la inscripción."));
+    }
+        
+        
+    //actualizarEstado
+    @Override
+    public Inscripcion actualizarEstado(Integer idUsuario, Integer idActividad, estadoInscripcion nuevoEstado) {
+        
+        Inscripcion inscripcion= buscarInscripcion( idUsuario,idActividad);
+        inscripcion.setEstado(nuevoEstado);
+        return iInscripcionRepository.save(inscripcion);
+    }
+
+    
+    
     
 
     

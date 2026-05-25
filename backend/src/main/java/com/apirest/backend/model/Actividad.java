@@ -43,6 +43,7 @@ public class Actividad {
     protected Date fecha_finalizacion;
     protected int intensidad_horaria;
     protected int cupo_maximo;
+    
     @Enumerated(EnumType.STRING)
     protected Enums.estado estado;
 }

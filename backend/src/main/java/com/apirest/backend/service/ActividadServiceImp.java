@@ -22,6 +22,7 @@ public class ActividadServiceImp implements IActividadService {
     @Autowired ICategoriaRepository categoriaRepository;
 
     //crear act
+    @Override
     public Actividad guardarActividad(Actividad actividad){
         
         if (!usuarioRepositoy.existsById(actividad.getIdUsuario_propone().getIdUsuario())) {
