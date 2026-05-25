@@ -18,10 +18,10 @@ public class Usuario {
     @Id
     protected Integer idUsuario;
     protected String nombre_completo;
-    protected Integer documento_identificacion;
+    protected String documento_identificacion;
     protected Integer edad;
     protected String email;
-    protected Integer telefono;
+    protected String telefono;
     protected String direccion_residencia;
     @Enumerated(EnumType.STRING)
     protected Enums.rol rol;
