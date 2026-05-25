@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Inscripcion {
     @EmbeddedId
     protected InscripcionId id;
-    protected Date fecha_inscripcion;
+    protected Date fechaInscripcion;
     @Enumerated(EnumType.STRING)
     protected Enums.estadoInscripcion estado;
 }

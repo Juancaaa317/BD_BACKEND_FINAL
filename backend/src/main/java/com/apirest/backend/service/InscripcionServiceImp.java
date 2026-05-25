@@ -52,7 +52,7 @@ public class InscripcionServiceImp implements IInscripcionService {
         }
 
         //set fecha automatico
-        inscripcion.setFecha_inscripcion(new Date()); 
+        inscripcion.setFechaInscripcion(new Date()); 
         //set estado inscrito
         inscripcion.setEstado(estadoInscripcion.inscrito);
 
