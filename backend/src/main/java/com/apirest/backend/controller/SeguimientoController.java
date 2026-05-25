@@ -14,7 +14,7 @@ import com.apirest.backend.service.ISeguimientoService;
 @RequestMapping("/UAO/apirest/seguimiento")
 public class SeguimientoController {
 
-    @Autowired
+    @Autowired 
     ISeguimientoService seguimientoService;
 
     // Endpoint para crear un seguimiento

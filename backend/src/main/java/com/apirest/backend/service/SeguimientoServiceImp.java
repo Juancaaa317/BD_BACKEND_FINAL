@@ -13,7 +13,7 @@ import com.apirest.backend.model.Usuario;
 import com.apirest.backend.repository.IActividadRepository;
 import com.apirest.backend.repository.IInscripcionRepository;
 import com.apirest.backend.repository.IUsuarioRepository;
-import com.apirest.backend.repository.SeguimientoRepository;
+import com.apirest.backend.repository.ISeguimientoRepository;
 
 import Enums.estado;
 import Enums.estadoInscripcion;
@@ -23,7 +23,7 @@ import Enums.rol;
 public class SeguimientoServiceImp implements ISeguimientoService {
 
     @Autowired
-    SeguimientoRepository seguimientoRepository;
+    ISeguimientoRepository seguimientoRepository;
 
     @Autowired
     IUsuarioRepository usuarioRepository;
