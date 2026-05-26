@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,18 +25,23 @@ public class Actividad {
     protected Integer idActividad;
     @ManyToOne
     @JoinColumn(name = "idCategoria")
+    @JsonIgnoreProperties({"descripcion"})
     protected Categoria idCategoria;
     @ManyToOne
     @JoinColumn(name = "idUsuario_propone")
+    @JsonIgnoreProperties({"documento_identificacion","edad","telefono","direccion_residencia","email","rol"})
     protected Usuario idUsuario_propone;
     @ManyToOne
     @JoinColumn(name = "idUsuario_aprueba")
+    @JsonIgnoreProperties({"documento_identificacion","edad","telefono","direccion_residencia","email","rol"})
     protected Usuario idUsuario_aprueba;
     @ManyToOne
     @JoinColumn(name = "idUsuario_imparte")
+    @JsonIgnoreProperties({"documento_identificacion","edad","telefono","direccion_residencia","email","rol"})
     protected Usuario idUsuario_imparte;
     @ManyToOne
     @JoinColumn(name = "idPrograma")
+    @JsonIgnoreProperties({"descripcion","fecha_inicio","fecha_fin","poblacion_objetivo","tipo"})
     protected programaEspecial idPrograma;
     protected String nombre;
     protected String descripcion;

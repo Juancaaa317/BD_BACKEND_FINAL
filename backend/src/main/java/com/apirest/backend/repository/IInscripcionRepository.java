@@ -30,4 +30,6 @@ public interface IInscripcionRepository extends JpaRepository<Inscripcion, Inscr
 
     @Query("SELECT COUNT(i) > 0 FROM Inscripcion i WHERE i.id.idActividad.idActividad = :idActividad")
     boolean existsByIdActividad(@Param("idActividad") Integer idActividad);
+
+    
 }

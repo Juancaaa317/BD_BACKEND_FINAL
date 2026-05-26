@@ -10,7 +10,10 @@ import com.apirest.backend.model.Actividad;
 import com.apirest.backend.model.Inscripcion;
 import com.apirest.backend.model.Usuario;
 import com.apirest.backend.repository.IActividadRepository;
+import com.apirest.backend.repository.IAsistenciaRepository;
 import com.apirest.backend.repository.IInscripcionRepository;
+import com.apirest.backend.repository.ISeguimientoRepository;
+import com.apirest.backend.repository.ISesionRepository;
 import com.apirest.backend.repository.IUsuarioRepository;
 
 import Enums.estado;
@@ -22,13 +25,16 @@ public class InscripcionServiceImp implements IInscripcionService {
 
     @Autowired
     IUsuarioRepository usuarioRepository;
-
+    @Autowired
+    ISesionRepository sesionRepository;
+    @Autowired IAsistenciaRepository asistenciaRepository;
     @Autowired
     IActividadRepository actividadRepository;
 
     @Autowired
     IInscripcionRepository iInscripcionRepository;
 
+    @Autowired ISeguimientoRepository seguimientoRepository;
     @Override
     public Inscripcion crearInscripcion(Inscripcion inscripcion) {
         
@@ -48,7 +54,7 @@ public class InscripcionServiceImp implements IInscripcionService {
         int inscritos = iInscripcionRepository.countById_IdActividad_IdActividad(actividad.getIdActividad());
 
         if(inscritos >= actividad.getCupo_maximo()){
-            throw new RuntimeException("no hay cupo papi");
+            throw new RuntimeException("No hay cupo ");
         }
 
         //set fecha automatico
@@ -108,25 +114,24 @@ public class InscripcionServiceImp implements IInscripcionService {
     public String eliminarInscripcion(Integer idUsuario, Integer idActividad) {
         
         Inscripcion inscripcion =buscarInscripcion( idUsuario,idActividad);
-        boolean tieneSeguimientos = false;
-        boolean tieneAsistencias = false;
+        
+         boolean tieneSeguimientos = !seguimientoRepository
+        .buscarHistorialParticipanteActividad(idUsuario, idActividad).isEmpty();
 
-        // BORRADO LOGICO
-        if ( tieneSeguimientos|| tieneAsistencias) {
+    boolean tieneAsistencias = asistenciaRepository
+        .existePorUsuarioYActividad(idUsuario, idActividad);
 
-            inscripcion.setEstado( Enums.estadoInscripcion.retirado );
-
-            iInscripcionRepository.save(inscripcion);
-
-            return "Inscripción retirada";
-        }
-
-        // BORRADO FISICO
-        iInscripcionRepository
-                .delete(inscripcion);
-
-        return "Inscripción eliminada";
+    // BORRADO LÓGICO — tiene historial
+    if (tieneSeguimientos || tieneAsistencias) {
+        inscripcion.setEstado(Enums.estadoInscripcion.retirado);
+        iInscripcionRepository.save(inscripcion);
+        return "El participante tiene historial registrado. Estado cambiado a 'retirado'.";
     }
+
+    // BORRADO FÍSICO — sin historial
+    iInscripcionRepository.delete(inscripcion);
+    return "Inscripción eliminada correctamente.";
+}
 
  
     

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apirest.backend.model.Actividad;
+import com.apirest.backend.model.Usuario;
 import com.apirest.backend.repository.IActividadRepository;
 import com.apirest.backend.repository.ICategoriaRepository;
 import com.apirest.backend.repository.IInscripcionRepository;
@@ -19,23 +20,27 @@ import Enums.rol;
 @Service
 public class ActividadServiceImp implements IActividadService {
 
-    @Autowired IActividadRepository actividadRepository;
-    @Autowired IUsuarioRepository usuarioRepositoy;
-    @Autowired ICategoriaRepository categoriaRepository;
-    @Autowired IInscripcionRepository inscripcionRepository;
-    @Autowired ISesionRepository sesionRepository;
+    @Autowired
+    IActividadRepository actividadRepository;
+    @Autowired
+    IUsuarioRepository usuarioRepositoy;
+    @Autowired
+    ICategoriaRepository categoriaRepository;
+    @Autowired
+    IInscripcionRepository inscripcionRepository;
+    @Autowired
+    ISesionRepository sesionRepository;
 
-    //crear act
+    // crear act
     @Override
-    public Actividad guardarActividad(Actividad actividad){
-        
-        if (!usuarioRepositoy.existsById(actividad.getIdUsuario_propone().getIdUsuario())) {
-            throw new RuntimeException("Error! El usuario que propone no existe.");
-        }
-        
-        
-        rol rolUsuario = actividad.getIdUsuario_propone().getRol();
-        if (rolUsuario==rol.participante) {
+    public Actividad guardarActividad(Actividad actividad) {
+
+        Integer idPropone = actividad.getIdUsuario_propone().getIdUsuario();
+
+        Usuario usuarioPropone = usuarioRepositoy.findById(idPropone).orElseThrow(() 
+        -> new RuntimeException("Error! El usuario que propone no existe."));
+
+        if (usuarioPropone.getRol() == rol.participante) {
             throw new RuntimeException("Error! Un participante no puede proponer actividades.");
         }
 
@@ -44,54 +49,56 @@ public class ActividadServiceImp implements IActividadService {
         }
 
         return actividadRepository.save(actividad);
-
     }
 
-    //listar
+    // listar
     @Override
     public List<Actividad> listarActividades() {
         return actividadRepository.findAll();
     }
-    //filtrar por estado
+
+    // filtrar por estado
     @Override
     public List<Actividad> filtrarPorEstado(estado estado) {
         return actividadRepository.findByEstado(estado);
     }
-    //filtrar por categoria
+
+    // filtrar por categoria
     @Override
     public List<Actividad> filtrarPorCategoria(Integer idCategoria) {
         return actividadRepository.findByCategoria_IdCategoria(idCategoria);
-        
-    
+
     }
-    //filtrar detalle
+
+    // filtrar detalle
     @Override
     public Optional<Actividad> buscarActividadDetalle(Integer idActividad) {
-        if(!actividadRepository.existsById(idActividad)){
+        if (!actividadRepository.existsById(idActividad)) {
             throw new RuntimeException("Error! La categoría no existe.");
         }
         return actividadRepository.findById(idActividad);
     }
-    //actualizar
+
+    // actualizar
     @Override
     public Actividad actualizarActividad(Integer idActividad, Actividad actividad) {
         if (!actividadRepository.existsById(idActividad)) {
             throw new RuntimeException("Error! La actividad no existe.");
         }
         Actividad actividadExistente = actividadRepository.findById(idActividad).get();
- 
+
         actividadExistente.setNombre(actividad.getNombre());
         actividadExistente.setDescripcion(actividad.getDescripcion());
-        actividadExistente.setEstado(actividad.getEstado());    
- 
+        actividadExistente.setEstado(actividad.getEstado());
+
         return actividadRepository.save(actividadExistente);
     }
-    //eliminar
+    // eliminar
 
     @Override
     public String eliminarActividad(Integer idActividad) {
-        
-        if(!actividadRepository.existsById(idActividad)){
+
+        if (!actividadRepository.existsById(idActividad)) {
             throw new RuntimeException("Error! La actividad no existe.");
         }
 
@@ -108,15 +115,7 @@ public class ActividadServiceImp implements IActividadService {
         // Borrado físico
         actividadRepository.deleteById(idActividad);
         return "Actividad eliminada correctamente";
-    
-        
-        
+
     }
-    
-    
-    
-
-
-
 
 }
